@@ -1,14 +1,15 @@
 {
   "name": "99carousel",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
   "dependencies": {
-    "react": "^15.5.4",
-    "react-dom": "^15.5.4",
-    "react-redux": "^5.0.5",
-    "redux": "^3.6.0",
-    "redux-thunk": "^2.2.0",
-    "superagent": "^3.5.2"
+    "prop-types": "^15.6.2",
+    "react": "15.5.4",
+    "react-dom": "15.5.4",
+    "react-redux": "5.0.5",
+    "redux": "3.6.0",
+    "redux-thunk": "2.2.0",
+    "superagent": "3.5.2"
   },
   "devDependencies": {
     "react-scripts": "1.0.7"
