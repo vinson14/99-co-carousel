@@ -9,7 +9,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
   - Performance optimization/Architectural suggestion to the project that you deem worthy
 
 # Delivery
-Once finish, please push to a separate branch named with this format `challenge/<your_name>` and drop us an email. We'll get back to you asap.
+Once finish, please push to a separate repo and drop us an email. We'll get back to you asap.
 
 # Restriction
 - Do not use any extra library other than those provided in the repo
