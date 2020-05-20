@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent } from "react";
 
 class ListingItem extends PureComponent {
   constructor() {
@@ -11,10 +11,8 @@ class ListingItem extends PureComponent {
   }
 
   render() {
-    const {
-      isTest,
-    } = this.props.listing;
-    return <p onClick={this.onClick}>{isTest ? 'Test' : 'Real'}</p>;
+    const { isTest } = this.props.listing;
+    return <p onClick={this.onClick}>{isTest ? "Test" : "Real"}</p>;
   }
 }
 

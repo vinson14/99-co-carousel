@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import ListingItem from './ListingItem';
-import { fetchData } from '../actions/listings';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import ListingItem from "./ListingItem";
+import { fetchData } from "../actions/listings";
 
 function mapStateToProps(state) {
   return {
@@ -23,14 +23,15 @@ class ListingCarousel extends Component {
   static propTypes = {
     listings: PropTypes.object,
     firstRender: PropTypes.boolean,
-  }
+  };
 
   constructor(props) {
     super();
     this.state = {
       listings: props.listings,
       isTest: [],
-      firstRender: typeof props.firstRender !== 'undefined' ? props.firstRender : true,
+      firstRender:
+        typeof props.firstRender !== "undefined" ? props.firstRender : true,
     };
     this.updateListing = this.updateListing.bind(this);
   }
@@ -49,7 +50,7 @@ class ListingCarousel extends Component {
 
   updateListing(id) {
     this.setState({
-       ...this.state,
+      ...this.state,
       listings: this.state.listings.map((listing) => {
         const isTest = listing.id === id;
         if (!isTest) return listing;
@@ -69,7 +70,7 @@ class ListingCarousel extends Component {
     }
 
     if (!listings) return null;
-    console.log('LISTINGS', listings);
+    console.log("LISTINGS", listings);
 
     const items = listings.map((listing, index) => {
       return (
@@ -81,11 +82,7 @@ class ListingCarousel extends Component {
       );
     });
 
-    return (
-      <div>
-        {items}
-      </div>
-    );
+    return <div>{items}</div>;
   }
 }
 
