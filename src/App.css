@@ -1,24 +1,111 @@
 .App {
-  text-align: center;
+    text-align: center;
 }
 
 .App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
+    animation: App-logo-spin infinite 20s linear;
+    height: 80px;
 }
 
 .App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
+    background-color: #222;
+    height: 150px;
+    padding: 20px;
+    color: white;
 }
 
 .App-intro {
-  font-size: large;
+    font-size: large;
 }
 
 @keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    font-family: "Avenir Next", sans-serif;
+}
+
+.carousel-container {
+    overflow-x: scroll;
+    margin-top: 10px;
+}
+
+.grid {
+    display: inline-grid;
+    grid-template-columns: auto;
+    grid-auto-flow: column;
+    grid-gap: 12px;
+}
+
+.grid-item {
+    width: 192px;
+    text-align: left;
+}
+
+.listing-image-container {
+    border-radius: 4px;
+    width: 100%;
+    height: 144px;
+    cursor: pointer;
+}
+
+.listing-image {
+    object-fit: cover;
+    border-radius: 4px;
+    width: 100%;
+    height: 144px;
+    cursor: pointer;
+}
+
+.listing-details-container {
+    margin-top: 12px;
+    cursor: pointer;
+}
+
+.listing-title {
+    color: #ff72b6;
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+    line-height: 16px;
+    font-size: 12px;
+    font-weight: 600;
+    margin: 0;
+    padding: 0;
+}
+
+.listing-price {
+    color: #1a2258;
+    margin: 4px 0 2px;
+    font-size: 16px;
+    line-height: 19px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.listing-address {
+    color: #1a2258;
+    font-weight: 400;
+    font-size: 14px;
+    text-decoration: none;
+}
+
+.listing-details {
+    line-height: 19px;
+    white-space: pre;
+    color: #1a2258;
+    font-size: 14px;
+    font-weight: 400;
+    margin: 0;
 }

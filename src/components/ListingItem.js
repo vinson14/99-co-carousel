@@ -1,19 +1,23 @@
-import React, { PureComponent } from "react";
+import React from "react";
 
-class ListingItem extends PureComponent {
-  constructor() {
-    super();
-    this.onClick = this.onClick.bind(this);
-  }
+const ListingItem = ({ onClick, listing }) => {
+    const onClickHandler = () => {
+        onClick(listing.id);
+    };
 
-  onClick() {
-    this.props.onClick(this.props.listing.id);
-  }
-
-  render() {
-    const { isTest } = this.props.listing;
-    return <p onClick={this.onClick}>{isTest ? "Test" : "Real"}</p>;
-  }
-}
+    return (
+        <div className="grid-item">
+            <img className="listing-image" src={`${listing.photos[0].url}`} />
+            <div className="listing-details-container">
+                <p className="listing-title" onClick={onClickHandler}>
+                    {`${listing.sub_category_formatted} FOR SALE`}
+                </p>
+                <h5 className="listing-price">{`${listing.attributes.price_formatted}`}</h5>
+                <a className="listing-address">{`${listing.address_line_1}`}</a>
+                <p className="listing-details">{`${listing.attributes.bedrooms} Beds   ${listing.attributes.bathrooms} Baths   ${listing.attributes.area_size_formatted}`}</p>
+            </div>
+        </div>
+    );
+};
 
 export default ListingItem;

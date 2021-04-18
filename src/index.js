@@ -11,12 +11,12 @@ import "./index.css";
 const store = createStore(rootReducer, applyMiddleware(log, thunk));
 
 function render() {
-  ReactDOM.render(
-    <Provider store={store}>
-      <App />
-    </Provider>,
-    document.getElementById("root")
-  );
+    ReactDOM.render(
+        <Provider store={store}>
+            <App />
+        </Provider>,
+        document.getElementById("root")
+    );
 }
 
 render();
