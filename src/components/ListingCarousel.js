@@ -1,21 +1,24 @@
-import React, { Component, useCallback, useEffect, useRef } from "react";
-import PropTypes from "prop-types";
-import { connect, useDispatch, useSelector } from "react-redux";
+import React, { useEffect, useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import ListingItem from "./ListingItem";
 import { fetchData } from "../actions/listings";
 import selectAllListings from "../selectors/listings";
+import { updateScreensize } from "../actions/screen";
 
 const ListingCarousel = () => {
-    const { listings, firstRender, pageNum } = useSelector(selectAllListings);
-    console.log(`${pageNum} from use selector`);
+    const { listings, pageNum } = useSelector(selectAllListings);
     const dispatch = useDispatch();
-    const grid = useRef(null);
-    const endOfGrid = useRef(null);
+    const gridRef = useRef(null);
+    const endOfGridRef = useRef(null);
 
     // Perform first fetch of listing data
     useEffect(() => {
         fetchData(dispatch);
-    }, []); // Use blank array to ensure fetchdata only occurs on initial render
+    }, [dispatch]); // Use blank array to ensure fetchdata only occurs on initial render
+
+    useEffect(() => {
+        dispatch(updateScreensize(window.innerWidth));
+    }, []);
 
     const scrollObserver = (container, endOfContainer) => {
         // Callback function when reached the end of grid
@@ -35,26 +38,32 @@ const ListingCarousel = () => {
         return intersectionObserver;
     };
 
+    // useEffect hook to create scroll observer
     useEffect(() => {
-        if (grid.current && endOfGrid.current && listings.length) {
-            const observer = scrollObserver(grid.current, endOfGrid.current);
-
+        if (gridRef.current && endOfGridRef.current && listings.length) {
+            const observer = scrollObserver(
+                gridRef.current,
+                endOfGridRef.current
+            );
+            // Return function to cleanup observer
             return () => {
-                console.log("disconnect observer");
                 observer.disconnect();
             };
         }
-    }, [grid, endOfGrid, scrollObserver, listings, pageNum]);
+    }, [gridRef, endOfGridRef, scrollObserver, listings, pageNum]);
+
+    const items = () => {
+        return listings.map((listing, index) => (
+            <ListingItem key={index} listing={listing} />
+        ));
+    };
 
     return (
         <div className="carousel-container">
-            <div className="grid" ref={grid}>
+            <div className="grid" ref={gridRef}>
                 <div></div>
-                {listings.length > 0 &&
-                    listings.map((listing, index) => (
-                        <ListingItem key={index} listing={listing} />
-                    ))}
-                <div ref={endOfGrid}></div>
+                {listings.length > 0 && items()}
+                <div ref={endOfGridRef}></div>
             </div>
         </div>
     );
