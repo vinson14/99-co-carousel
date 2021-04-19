@@ -12,36 +12,37 @@ const ListingCarousel = () => {
     const grid = useRef(null);
     const endOfGrid = useRef(null);
 
+    // Perform first fetch of listing data
     useEffect(() => {
         fetchData(dispatch);
-    }, []);
+    }, []); // Use blank array to ensure fetchdata only occurs on initial render
 
-    const scrollObserver = useCallback(
-        (container, endOfContainer) => {
-            // Callback function when reached the end of grid
-            const obsCallback = (entries, observer) => {
-                entries.forEach((entry) => {
-                    if (entry.intersectionRatio > 0) {
-                        fetchData(dispatch, pageNum + 1);
-                        observer.disconnect();
-                    }
-                });
-            };
-            // Setting up new intersection observer
-            const intersectionObserver = new IntersectionObserver(obsCallback, {
-                root: container.current,
+    const scrollObserver = (container, endOfContainer) => {
+        // Callback function when reached the end of grid
+        const obsCallback = (entries, observer) => {
+            entries.forEach((entry) => {
+                if (entry.intersectionRatio > 0) {
+                    fetchData(dispatch, pageNum + 1);
+                    observer.disconnect();
+                }
             });
-            intersectionObserver.observe(endOfContainer);
-        },
-        [dispatch, pageNum] // Change this function whenever dispatch or pagenum changes
-    );
+        };
+        // Setting up new intersection observer
+        const intersectionObserver = new IntersectionObserver(obsCallback, {
+            root: container.current,
+        });
+        intersectionObserver.observe(endOfContainer);
+        return intersectionObserver;
+    };
 
     useEffect(() => {
-        console.log(
-            `useEffect() ran with ${listings.length} and pageNum ${pageNum}`
-        );
         if (grid.current && endOfGrid.current && listings.length) {
-            scrollObserver(grid.current, endOfGrid.current);
+            const observer = scrollObserver(grid.current, endOfGrid.current);
+
+            return () => {
+                console.log("disconnect observer");
+                observer.disconnect();
+            };
         }
     }, [grid, endOfGrid, scrollObserver, listings, pageNum]);
 
