@@ -1,6 +1,7 @@
 import React from "react";
+import ImgSlideshow from "./ImgSlideshow";
 
-const ListingItem = ({ onClick, listing }) => {
+const ListingItem = ({ onClick, listing, screensize = "xs" }) => {
     const onClickHandler = () => {
         onClick(listing.id);
     };
@@ -8,6 +9,7 @@ const ListingItem = ({ onClick, listing }) => {
     return (
         <div className="grid-item">
             <img className="listing-image" src={`${listing.photos[0].url}`} />
+            {screensize !== "xs" && <ImgSlideshow imgs={listing.photos} />}
             <div className="listing-details-container">
                 <p className="listing-title" onClick={onClickHandler}>
                     {`${listing.sub_category_formatted} FOR SALE`}

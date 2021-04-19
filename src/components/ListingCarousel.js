@@ -4,9 +4,11 @@ import ListingItem from "./ListingItem";
 import { fetchData } from "../actions/listings";
 import selectAllListings from "../selectors/listings";
 import { updateScreensize } from "../actions/screen";
+import getScreensize from "../selectors/screen";
 
 const ListingCarousel = () => {
     const { listings, pageNum } = useSelector(selectAllListings);
+    const { screensize } = useSelector(getScreensize);
     const dispatch = useDispatch();
     const gridRef = useRef(null);
     const endOfGridRef = useRef(null);
@@ -57,7 +59,11 @@ const ListingCarousel = () => {
 
     const items = () => {
         return listings.map((listing, index) => (
-            <ListingItem key={index} listing={listing} />
+            <ListingItem
+                key={index}
+                listing={listing}
+                screensize={screensize}
+            />
         ));
     };
 
