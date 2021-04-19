@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useCallback, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ListingItem from "./ListingItem";
 import { fetchData } from "../actions/listings";
@@ -18,25 +18,28 @@ const ListingCarousel = () => {
 
     useEffect(() => {
         dispatch(updateScreensize(window.innerWidth));
-    }, []);
+    }, [dispatch]);
 
-    const scrollObserver = (container, endOfContainer) => {
-        // Callback function when reached the end of grid
-        const obsCallback = (entries, observer) => {
-            entries.forEach((entry) => {
-                if (entry.intersectionRatio > 0) {
-                    fetchData(dispatch, pageNum + 1);
-                    observer.disconnect();
-                }
+    const scrollObserver = useCallback(
+        (container, endOfContainer) => {
+            // Callback function when reached the end of grid
+            const obsCallback = (entries, observer) => {
+                entries.forEach((entry) => {
+                    if (entry.intersectionRatio > 0) {
+                        fetchData(dispatch, pageNum + 1);
+                        observer.disconnect();
+                    }
+                });
+            };
+            // Setting up new intersection observer
+            const intersectionObserver = new IntersectionObserver(obsCallback, {
+                root: container.current,
             });
-        };
-        // Setting up new intersection observer
-        const intersectionObserver = new IntersectionObserver(obsCallback, {
-            root: container.current,
-        });
-        intersectionObserver.observe(endOfContainer);
-        return intersectionObserver;
-    };
+            intersectionObserver.observe(endOfContainer);
+            return intersectionObserver;
+        },
+        [pageNum, dispatch]
+    );
 
     // useEffect hook to create scroll observer
     useEffect(() => {

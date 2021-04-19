@@ -35,5 +35,7 @@ const calculateScreensize = (width) => {
             return "l";
         case width >= screensizes.xl:
             return "xl";
+        default:
+            return "xs";
     }
 };
