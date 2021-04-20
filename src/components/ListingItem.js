@@ -8,8 +8,9 @@ const ListingItem = ({ onClick, listing, screensize = "xs" }) => {
 
     return (
         <div className="grid-item">
-            <img className="listing-image" src={`${listing.photos[0].url}`} />
-            {screensize !== "xs" && <ImgSlideshow imgs={listing.photos} />}
+            {(screensize !== "xs" && <ImgSlideshow imgs={listing.photos} />) || (
+                <img className="listing-image" src={`${listing.photos[0].url}`} />
+            )}
             <div className="listing-details-container">
                 <p className="listing-title" onClick={onClickHandler}>
                     {`${listing.sub_category_formatted} FOR SALE`}

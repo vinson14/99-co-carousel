@@ -46,24 +46,17 @@ const ListingCarousel = () => {
     // useEffect hook to create scroll observer
     useEffect(() => {
         if (gridRef.current && endOfGridRef.current && listings.length) {
-            const observer = scrollObserver(
-                gridRef.current,
-                endOfGridRef.current
-            );
+            const observer = scrollObserver(gridRef.current, endOfGridRef.current);
             // Return function to cleanup observer
             return () => {
                 observer.disconnect();
             };
         }
-    }, [gridRef, endOfGridRef, scrollObserver, listings, pageNum]);
+    }, [gridRef, endOfGridRef, listings, scrollObserver]);
 
     const items = () => {
         return listings.map((listing, index) => (
-            <ListingItem
-                key={index}
-                listing={listing}
-                screensize={screensize}
-            />
+            <ListingItem key={index} listing={listing} screensize={screensize} />
         ));
     };
 
