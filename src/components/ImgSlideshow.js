@@ -4,18 +4,6 @@ const ImgSlideshow = ({ imgs = [] }) => {
     const [imgNum, setImgNum] = useState(0);
     const imgsRef = useRef([]);
 
-    // const imgObserver = useCallback((container) => {
-    //     const obsCallback = (entries, obs) => {
-    //         entries.forEach((entry) => {
-    //             if (entry.intersectionRatio > 0) {
-    //                 entry.target.src = entry.target.dataset.src;
-    //             }
-    //         });
-    //     };
-    //     const observer = new IntersectionObserver(obsCallback, { root: container });
-    //     return observer;
-    // }, []);
-
     const nextImgNum = useCallback((n) => {
         if (n < imgsRef.current.length - 1) {
             return n + 1;
@@ -24,11 +12,18 @@ const ImgSlideshow = ({ imgs = [] }) => {
         }
     }, []);
 
+    const prevImgNum = useCallback((n) => {
+        if (n > 0) {
+            return n - 1;
+        } else {
+            return imgsRef.current.length - 1;
+        }
+    }, []);
+
     useEffect(() => {
         if (imgsRef.current.length > 0) {
             // Lazily Load Next image
-            const nextImg = nextImgNum(imgNum);
-            const imgToLoad = imgsRef.current[nextImg];
+            const imgToLoad = imgsRef.current[nextImgNum(imgNum)];
             imgToLoad.src = imgToLoad.dataset.src;
         }
     }, [imgsRef, imgNum, nextImgNum]);
@@ -44,18 +39,22 @@ const ImgSlideshow = ({ imgs = [] }) => {
             {imgs.map((img, index) => {
                 const showImg = index === imgNum;
                 return (
-                    <div key={`${img.id}${index}`} className="slideshow-img-container">
-                        <img
-                            className={`slideshow-img ${showImg && "show"}`}
-                            alt={img.caption}
-                            src={(index === 0 && img.url) || ""}
-                            data-src={img.url}
-                            ref={(element) => addToRef(element)}
-                        />
-                    </div>
+                    <img
+                        key={`${img.id}${index}`}
+                        className={`slideshow-img ${(showImg && "show") || "hidden-right"}`}
+                        alt={img.caption}
+                        src={(index === 0 && img.url) || ""}
+                        data-src={img.url}
+                        ref={(element) => addToRef(element)}
+                    />
                 );
             })}
-            <button onClick={() => setImgNum((n) => nextImgNum(n))}>Next Img</button>
+            <button className="prev-image" onClick={() => setImgNum((n) => prevImgNum(n))}>
+                Previous Img
+            </button>
+            <button className="next-image" onClick={() => setImgNum((n) => nextImgNum(n))}>
+                Next Img
+            </button>
         </div>
     );
 };
