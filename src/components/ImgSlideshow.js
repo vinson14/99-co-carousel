@@ -49,10 +49,18 @@ const ImgSlideshow = ({ imgs = [] }) => {
                     />
                 );
             })}
-            <button className="prev-image" onClick={() => setImgNum((n) => prevImgNum(n))}>
+            <button
+                className="prev-image"
+                onClick={() => setImgNum((n) => prevImgNum(n))}
+                disabled={imgNum === 0}
+            >
                 Previous Img
             </button>
-            <button className="next-image" onClick={() => setImgNum((n) => nextImgNum(n))}>
+            <button
+                className="next-image"
+                onClick={() => setImgNum((n) => nextImgNum(n))}
+                disabled={imgNum === imgsRef.current.length - 1}
+            >
                 Next Img
             </button>
         </div>

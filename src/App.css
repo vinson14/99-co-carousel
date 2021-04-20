@@ -138,11 +138,15 @@ body {
     cursor: pointer;
 }
 
+.slideshow-img.show {
+    left: 0%;
+}
+
 .slideshow-img.hidden-right {
     left: 100%;
 }
 
-.slideshow-img.show {
+.slideshow-img.show-from-right {
     animation: enter-from-right 0.5s forwards;
 }
 
