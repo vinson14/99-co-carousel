@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "850e70fff4885a89d59f5e74a0f67aea",
+    "revision": "6b675d39674f4aab5055030b29fb8498",
     "url": "/99-co-carousel/index.html"
   },
   {
@@ -8,8 +8,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/99-co-carousel/static/css/2.ad9c7bb6.chunk.css"
   },
   {
-    "revision": "acb2895f5de3a2c75fad",
-    "url": "/99-co-carousel/static/css/main.c60938d1.chunk.css"
+    "revision": "ebb6cc0dae76a908817e",
+    "url": "/99-co-carousel/static/css/main.61c11ef1.chunk.css"
   },
   {
     "revision": "60b3f946d71dd9747d35",
@@ -20,8 +20,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/99-co-carousel/static/js/2.e14e5f24.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "acb2895f5de3a2c75fad",
-    "url": "/99-co-carousel/static/js/main.3aacbe49.chunk.js"
+    "revision": "ebb6cc0dae76a908817e",
+    "url": "/99-co-carousel/static/js/main.a3d8a866.chunk.js"
   },
   {
     "revision": "d44a366fdaf5a1acd68c",
