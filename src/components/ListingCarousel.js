@@ -22,13 +22,26 @@ const ListingCarousel = () => {
         dispatch(updateScreensize(window.innerWidth));
     }, [dispatch]);
 
+    // UseEffect Hook to listen for window resize
+    useEffect(() => {
+        const handleResize = () => {
+            dispatch(updateScreensize(window.innerWidth));
+        };
+
+        window.addEventListener("resize", handleResize);
+
+        return () => {
+            window.removeEventListener("resize", handleResize);
+        };
+    }, [dispatch]);
+
     const scrollObserver = useCallback(
         (container, endOfContainer) => {
             // Callback function when reached the end of grid
             const obsCallback = (entries, observer) => {
                 entries.forEach((entry) => {
                     if (entry.intersectionRatio > 0) {
-                        fetchData(dispatch, pageNum + 1);
+                        fetchData(dispatch);
                         observer.disconnect();
                     }
                 });
@@ -45,8 +58,17 @@ const ListingCarousel = () => {
 
     // useEffect hook to create scroll observer
     useEffect(() => {
-        if (gridRef.current && endOfGridRef.current && listings.length) {
-            const observer = scrollObserver(gridRef.current, endOfGridRef.current);
+        if (
+            gridRef.current &&
+            endOfGridRef.current &&
+            listings.length &&
+            screensize === "xs"
+        ) {
+            console.log("scrollobserver ran");
+            const observer = scrollObserver(
+                gridRef.current,
+                endOfGridRef.current
+            );
             // Return function to cleanup observer
             return () => {
                 observer.disconnect();
@@ -59,21 +81,31 @@ const ListingCarousel = () => {
             return listings
                 .slice(0, 4)
                 .map((listing, index) => (
-                    <ListingItem key={index} listing={listing} screensize={screensize} />
+                    <ListingItem
+                        key={index}
+                        listing={listing}
+                        screensize={screensize}
+                    />
                 ));
         }
 
         return listings.map((listing, index) => (
-            <ListingItem key={index} listing={listing} screensize={screensize} />
+            <ListingItem
+                key={index}
+                listing={listing}
+                screensize={screensize}
+            />
         ));
     };
 
     return (
-        <div className={`carousel-container-${screensize}`}>
-            <div className={`grid-${screensize}`} ref={gridRef}>
-                {screensize === "xs" && <div></div>}
-                {listings.length > 0 && items()}
-                <div ref={endOfGridRef}></div>
+        <div className="carousel-section">
+            <div className={`carousel-container-${screensize}`}>
+                <div className={`grid-${screensize}`} ref={gridRef}>
+                    {screensize === "xs" && <div></div>}
+                    {listings.length > 0 && items()}
+                    <div ref={endOfGridRef}></div>
+                </div>
             </div>
         </div>
     );

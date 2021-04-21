@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import "@fortawesome/fontawesome-free/css/all.css";
 
-const ImgSlideshow = ({ imgs = [] }) => {
+const ImgSlideshow = ({ imgs = [], screensize }) => {
     const [imgNum, setImgNum] = useState(0);
     const [prevImgNum, setPrevImgNum] = useState(0);
     const [pristine, setPristine] = useState(true);
@@ -66,7 +66,7 @@ const ImgSlideshow = ({ imgs = [] }) => {
     };
 
     return (
-        <div className="slideshow-container">
+        <div className={`slideshow-container`}>
             {imgs.map((img, index) => {
                 return (
                     <img
@@ -79,15 +79,19 @@ const ImgSlideshow = ({ imgs = [] }) => {
                     />
                 );
             })}
-            <button className="prev-image-button" onClick={prevImg} disabled={imgNum === 0}>
-                <i class="fas fa-chevron-left"></i>
+            <button
+                className="prev-image-button"
+                onClick={prevImg}
+                disabled={imgNum === 0}
+            >
+                <i className="fas fa-chevron-left"></i>
             </button>
             <button
                 className="next-image-button"
                 onClick={nextImg}
                 disabled={imgNum === imgsRef.current.length - 1}
             >
-                <i class="fas fa-chevron-right"></i>
+                <i className="fas fa-chevron-right"></i>
             </button>
         </div>
     );

@@ -38,30 +38,34 @@ body {
 }
 
 .carousel-section {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
-.carousel-container {
+    width: 100%;
     overflow-x: auto;
-    margin-top: 10px;
-    min-width: 960px;
-    max-width: 1120px;
 }
 
-.carousel-container-mobile {
+.carousel-container-xs {
+    position: relative;
+    margin: 12px auto;
     overflow-x: scroll;
-    margin-top: 10px;
 }
 
-.grid {
-    display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    grid-gap: 32px;
+.carousel-container-s,
+.carousel-container-m,
+.carousel-container-l,
+.carousel-container-xl {
+    position: relative;
+    margin: 80px auto;
+    width: 1120px;
 }
 
+.grid-xs {
+    display: inline-grid;
+    grid-auto-flow: column;
+    grid-template-columns: auto;
+    grid-gap: 12px;
+    position: relative;
+}
+
+.grid-s,
 .grid-m,
 .grid-l,
 .grid-xl {
@@ -69,6 +73,12 @@ body {
     margin-top: 32px;
     gap: 32px;
     grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.grid-item-s,
+.grid-item-xs {
+    text-align: left;
+    width: 192px;
 }
 
 .grid-item-m,
@@ -135,9 +145,20 @@ body {
 
 .slideshow-container {
     position: relative;
-    width: 100%;
+    overflow-x: hidden;
+}
+
+.grid-item-xs .slideshow-container,
+.grid-item-s .slideshow-container {
+    width: 192px;
     height: 144px;
-    overflow: hidden;
+}
+
+.grid-item-m .slideshow-container,
+.grid-item-l .slideshow-container,
+.grid-item-xl .slideshow-container {
+    width: 256px;
+    height: 192px;
 }
 
 .prev-image-button,
@@ -164,18 +185,12 @@ body {
     right: 10px;
 }
 
-.grid-item-m,
-.grid-item-l,
-.grid-item-xl,
-.slideshow-img {
-    height: 192px;
-}
-
 .slideshow-img {
     position: absolute;
     object-fit: cover;
     border-radius: 4px;
     width: 100%;
+    height: 100%;
     cursor: pointer;
 }
 
