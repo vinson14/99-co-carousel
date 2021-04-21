@@ -7,17 +7,19 @@ import { updateScreensize } from "../actions/screen";
 import getScreensize from "../selectors/screen";
 
 const ListingCarousel = () => {
+    // Selectors to obtain redux state
     const { listings, pageNum } = useSelector(selectAllListings);
     const { screensize } = useSelector(getScreensize);
+    // Get dispatch function from redux to update states
     const dispatch = useDispatch();
+    // Reference to for IntersectionObserver to load more data
     const gridRef = useRef(null);
     const endOfGridRef = useRef(null);
 
     // Perform first fetch of listing data
     useEffect(() => {
         fetchData(dispatch);
-    }, [dispatch]); // Use blank array to ensure fetchdata only occurs on initial render
-
+    }, [dispatch]);
     useEffect(() => {
         dispatch(updateScreensize(window.innerWidth));
     }, [dispatch]);
@@ -29,12 +31,13 @@ const ListingCarousel = () => {
         };
 
         window.addEventListener("resize", handleResize);
-
+        // Return cleanup function
         return () => {
             window.removeEventListener("resize", handleResize);
         };
     }, [dispatch]);
 
+    // Create function to listen when user scrolls to the end
     const scrollObserver = useCallback(
         (container, endOfContainer) => {
             // Callback function when reached the end of grid
@@ -59,6 +62,7 @@ const ListingCarousel = () => {
     // useEffect hook to create scroll observer
     useEffect(() => {
         if (
+            // Ensure that the references have loaded, listings have loaded and the sreen is mobile
             gridRef.current &&
             endOfGridRef.current &&
             listings.length &&
@@ -75,6 +79,7 @@ const ListingCarousel = () => {
         }
     }, [gridRef, endOfGridRef, listings, scrollObserver]);
 
+    // Function to create items for listings
     const items = () => {
         if (screensize !== "xs") {
             return listings

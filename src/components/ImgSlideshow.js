@@ -1,34 +1,38 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import "@fortawesome/fontawesome-free/css/all.css";
 
-const ImgSlideshow = ({ imgs = [], screensize }) => {
+const ImgSlideshow = ({ imgs = [] }) => {
     const [imgNum, setImgNum] = useState(0);
     const [prevImgNum, setPrevImgNum] = useState(0);
     const [pristine, setPristine] = useState(true);
     const imgsRef = useRef([]);
 
+    // Calculate the index of the next img
     const getNextImgNum = useCallback((n) => {
         return n < imgsRef.current.length - 1 ? n + 1 : 0;
     }, []);
 
+    // Calculate the index of the previous img
     const getPrevImgNum = useCallback((n) => {
         return n > 0 ? n - 1 : imgsRef.current.length - 1;
     }, []);
 
+    // UseEffect Hook to lazily load next image
     useEffect(() => {
         if (imgsRef.current.length > 0) {
-            // Lazily Load Next image
             const imgToLoad = imgsRef.current[getNextImgNum(imgNum)];
             imgToLoad.src = imgToLoad.dataset.src;
         }
     }, [imgsRef, imgNum, getNextImgNum]);
 
+    // Add to ref
     const addToRef = (element) => {
         if (imgsRef.current.length < imgs.length) {
             imgsRef.current.push(element);
         }
     };
 
+    // Handle next chevron
     const nextImg = (e) => {
         e.stopPropagation();
         if (pristine) {
@@ -39,12 +43,14 @@ const ImgSlideshow = ({ imgs = [], screensize }) => {
         setImgNum((n) => getNextImgNum(n));
     };
 
+    // Handle prev chevron
     const prevImg = (e) => {
         e.stopPropagation();
         setPrevImgNum(imgNum);
         setImgNum((n) => getPrevImgNum(n));
     };
 
+    // Function to handle animations
     const getClassNames = (n) => {
         if (pristine) {
             return n === 0 ? "show" : "hidden-right";
