@@ -69,8 +69,8 @@ const ListingCarousel = () => {
     };
 
     return (
-        <div className={`carousel-container${screensize === "xs" ? "-mobile" : ""}`}>
-            <div className={`${screensize === "xs" ? "grid-mobile" : "grid"}`} ref={gridRef}>
+        <div className={`carousel-container-${screensize}`}>
+            <div className={`grid-${screensize}`} ref={gridRef}>
                 {screensize === "xs" && <div></div>}
                 {listings.length > 0 && items()}
                 <div ref={endOfGridRef}></div>

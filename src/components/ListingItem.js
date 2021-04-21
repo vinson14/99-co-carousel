@@ -7,10 +7,7 @@ const ListingItem = ({ onClick, listing, screensize = "xs" }) => {
     };
 
     return (
-        <div
-            className="grid-item"
-            style={{ width: screensize === "xs" || screensize === "s" ? 192 : 256 }}
-        >
+        <div className={`grid-item-${screensize}`}>
             {(screensize !== "xs" && <ImgSlideshow imgs={listing.photos} />) || (
                 <img className="listing-image" src={`${listing.photos[0].url}`} />
             )}

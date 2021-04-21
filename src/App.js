@@ -11,7 +11,9 @@ class App extends Component {
                     <img src={logo} className="App-logo" alt="logo" />
                     <h2>Listing Carousel</h2>
                 </div>
-                <ListingCarousel />
+                <div className="carousel-section">
+                    <ListingCarousel />
+                </div>
             </div>
         );
     }
