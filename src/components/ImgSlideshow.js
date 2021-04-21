@@ -29,7 +29,8 @@ const ImgSlideshow = ({ imgs = [], screensize }) => {
         }
     };
 
-    const nextImg = () => {
+    const nextImg = (e) => {
+        e.stopPropagation();
         if (pristine) {
             setPristine(false);
         } else {
@@ -38,7 +39,8 @@ const ImgSlideshow = ({ imgs = [], screensize }) => {
         setImgNum((n) => getNextImgNum(n));
     };
 
-    const prevImg = () => {
+    const prevImg = (e) => {
+        e.stopPropagation();
         setPrevImgNum(imgNum);
         setImgNum((n) => getPrevImgNum(n));
     };

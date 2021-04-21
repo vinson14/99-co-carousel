@@ -64,7 +64,6 @@ const ListingCarousel = () => {
             listings.length &&
             screensize === "xs"
         ) {
-            console.log("scrollobserver ran");
             const observer = scrollObserver(
                 gridRef.current,
                 endOfGridRef.current

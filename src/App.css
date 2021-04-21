@@ -164,6 +164,7 @@ body {
 .prev-image-button,
 .next-image-button {
     position: absolute;
+    z-index: 10;
     top: 50%;
     border: none;
     background-color: transparent;
