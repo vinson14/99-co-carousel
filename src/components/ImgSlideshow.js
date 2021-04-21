@@ -37,6 +37,8 @@ const ImgSlideshow = ({ imgs = [] }) => {
         e.stopPropagation();
         if (pristine) {
             setPristine(false);
+        } else if (imgNum === imgsRef.current.length - 1) {
+            return;
         } else {
             setPrevImgNum(imgNum);
         }
@@ -46,6 +48,9 @@ const ImgSlideshow = ({ imgs = [] }) => {
     // Handle prev chevron
     const prevImg = (e) => {
         e.stopPropagation();
+
+        if (imgNum === 0) return;
+
         setPrevImgNum(imgNum);
         setImgNum((n) => getPrevImgNum(n));
     };
@@ -87,18 +92,10 @@ const ImgSlideshow = ({ imgs = [] }) => {
                     />
                 );
             })}
-            <button
-                className="prev-image-button"
-                onClick={prevImg}
-                disabled={imgNum === 0}
-            >
+            <button className="prev-image-button" onClick={prevImg}>
                 <i className="fas fa-chevron-left"></i>
             </button>
-            <button
-                className="next-image-button"
-                onClick={nextImg}
-                disabled={imgNum === imgsRef.current.length - 1}
-            >
+            <button className="next-image-button" onClick={nextImg}>
                 <i className="fas fa-chevron-right"></i>
             </button>
         </div>
