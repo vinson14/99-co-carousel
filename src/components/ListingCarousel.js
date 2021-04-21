@@ -55,15 +55,23 @@ const ListingCarousel = () => {
     }, [gridRef, endOfGridRef, listings, scrollObserver]);
 
     const items = () => {
+        if (screensize !== "xs") {
+            return listings
+                .slice(0, 4)
+                .map((listing, index) => (
+                    <ListingItem key={index} listing={listing} screensize={screensize} />
+                ));
+        }
+
         return listings.map((listing, index) => (
             <ListingItem key={index} listing={listing} screensize={screensize} />
         ));
     };
 
     return (
-        <div className="carousel-container">
-            <div className="grid" ref={gridRef}>
-                <div></div>
+        <div className={`carousel-container${screensize === "xs" ? "-mobile" : ""}`}>
+            <div className={`${screensize === "xs" ? "grid-mobile" : "grid"}`} ref={gridRef}>
+                {screensize === "xs" && <div></div>}
                 {listings.length > 0 && items()}
                 <div ref={endOfGridRef}></div>
             </div>

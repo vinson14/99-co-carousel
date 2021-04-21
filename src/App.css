@@ -38,11 +38,26 @@ body {
 }
 
 .carousel-container {
+    overflow-x: auto;
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    min-width: 960px;
+    max-width: 1120px;
+}
+
+.carousel-container-mobile {
     overflow-x: scroll;
     margin-top: 10px;
 }
 
 .grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-gap: 32px;
+}
+
+.grid-mobile {
     display: inline-grid;
     grid-template-columns: auto;
     grid-auto-flow: column;
@@ -50,7 +65,6 @@ body {
 }
 
 .grid-item {
-    width: 192px;
     text-align: left;
 }
 
@@ -117,15 +131,27 @@ body {
     overflow: hidden;
 }
 
-.prev-image {
+.prev-image-button,
+.next-image-button {
     position: absolute;
     top: 50%;
+    border: none;
+    background-color: transparent;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.prev-image-button:focus,
+.next-image-button:focus {
+    outline: none;
+}
+
+.prev-image-button {
     left: 10px;
 }
 
-.next-image {
-    position: absolute;
-    top: 50%;
+.next-image-button {
     right: 10px;
 }
 
@@ -139,15 +165,31 @@ body {
 }
 
 .slideshow-img.show {
-    left: 0%;
+    left: 0% !important;
+}
+
+.slideshow-img.hidden-left {
+    left: -100%;
 }
 
 .slideshow-img.hidden-right {
     left: 100%;
 }
 
-.slideshow-img.show-from-right {
+.slideshow-img.enter-from-right {
     animation: enter-from-right 0.5s forwards;
+}
+
+.slideshow-img.enter-from-left {
+    animation: enter-from-left 0.5s forwards;
+}
+
+.slideshow-img.exit-to-right {
+    animation: exit-to-right 0.5s forwards;
+}
+
+.slideshow-img.exit-to-left {
+    animation: exit-to-left 0.5s forwards;
 }
 
 /* Slideshow animation css */
@@ -166,5 +208,59 @@ body {
     }
     100% {
         left: 0;
+    }
+}
+
+@keyframes enter-from-left {
+    0% {
+        left: -100%;
+    }
+    100% {
+        left: 0;
+    }
+}
+
+@-webkit-keyframes enter-from-left {
+    0% {
+        left: -100%;
+    }
+    100% {
+        left: 0;
+    }
+}
+
+@keyframes exit-to-right {
+    0% {
+        left: 0;
+    }
+    100% {
+        left: 100%;
+    }
+}
+
+@-webkit-keyframes exit-to-right {
+    0% {
+        left: 0;
+    }
+    100% {
+        left: 100%;
+    }
+}
+
+@keyframes exit-to-left {
+    0% {
+        left: 0;
+    }
+    100% {
+        left: -100%;
+    }
+}
+
+@-webkit-keyframes exit-to-left {
+    0% {
+        left: 0;
+    }
+    100% {
+        left: -100%;
     }
 }
